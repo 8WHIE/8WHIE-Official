@@ -1,0 +1,180 @@
+import { Project, ExpertiseItem, ResearchTopic } from './types';
+
+export const BRAND_INFO = {
+  name: '8WHIE',
+  founder: 'Aryan Thakur',
+  primaryTagline: 'EXPLORE. BREAK. SECURE.',
+  supportingTagline: 'Cybersecurity • Research • Technology',
+  location: 'Patna, India',
+  email: 'iaryan9905@gmail.com',
+  socials: {
+    instagram: {
+      handle: '@8whie_',
+      url: 'https://instagram.com/8whie_',
+      name: 'Instagram',
+    },
+    youtube: {
+      handle: '@8WHIE',
+      url: 'https://youtube.com/@8WHIE',
+      name: 'YouTube',
+    },
+    telegram: {
+      handle: '@Arnxkt',
+      url: 'https://t.me/Arnxkt',
+      name: 'Telegram',
+    },
+    x: {
+      handle: '@im_aryanthakur',
+      url: 'https://x.com/im_aryanthakur',
+      name: 'X',
+    },
+  },
+};
+
+export const EXPERTISE_ITEMS: ExpertiseItem[] = [
+  {
+    number: '01',
+    title: 'CYBERSECURITY',
+    description: 'Digital security, security awareness and understanding modern attack surfaces.',
+    domains: ['Threat Modeling', 'Attack Surface Mapping', 'Defensive Architecture', 'Posture Hardening'],
+    methodology: 'Systematic analysis of digital assets and threat actor telemetry.',
+  },
+  {
+    number: '02',
+    title: 'ETHICAL HACKING',
+    description: 'Learning how vulnerabilities work through authorized and responsible security testing.',
+    domains: ['Penetration Testing', 'Vulnerability Assessment', 'Proof-of-Concept Verification', 'Responsible Disclosure'],
+    methodology: 'Controlled simulation of adversary behaviors in isolated staging sandboxes.',
+  },
+  {
+    number: '03',
+    title: 'OSINT',
+    description: 'Understanding publicly available information and responsible digital investigation.',
+    domains: ['Open-Source Intelligence', 'Digital Footprinting', 'Asset Discovery', 'Metadata Analysis'],
+    methodology: 'Synthesizing public records, DNS registries, and passive infrastructure data.',
+  },
+  {
+    number: '04',
+    title: 'RESEARCH',
+    description: 'Exploring security concepts, emerging technology and experimental ideas.',
+    domains: ['Protocol Analysis', 'Emerging Vectors', 'Cryptographic Primitives', 'System Invariants'],
+    methodology: 'Empirical experimentation and documentation of unexplored system edges.',
+  },
+  {
+    number: '05',
+    title: 'TOOLS & AUTOMATION',
+    description: 'Building and exploring useful technical tools, automation and digital systems.',
+    domains: ['Custom Scanners', 'Workflow Pipelines', 'Telemetry Scripts', 'Defensive Automation'],
+    methodology: 'Creating lightweight, resilient scripts to accelerate routine security audits.',
+  },
+  {
+    number: '06',
+    title: 'EDUCATION',
+    description: 'Making cybersecurity and technology easier to understand through practical content.',
+    domains: ['Concept Deconstruction', 'Interactive Walkthroughs', 'Defensive Guides', 'Security Fundamentals'],
+    methodology: 'Demystifying complex systems into actionable, principled technical insights.',
+  },
+];
+
+export const RESEARCH_TOPICS: ResearchTopic[] = [
+  {
+    id: 'web-sec',
+    title: 'WEB SECURITY',
+    summary: 'Deconstructing modern web application vulnerabilities, authentication architectures, and client-server boundaries.',
+    deepDive: 'Investigating stateful session handling, OAuth flow boundaries, CSRF mitigations, Content Security Policy enforcement, and input sanitation across distributed web backends.',
+    vectors: ['API Endpoints', 'Session Management', 'Client Storage', 'Cross-Origin Boundaries'],
+    defensiveFocus: 'Strict schema enforcement, least-privilege token lifecycles, and zero-trust perimeter gates.',
+  },
+  {
+    id: 'net-sec',
+    title: 'NETWORK SECURITY',
+    summary: 'Packet-level analysis, protocol vulnerability assessment, and perimeter defense strategies.',
+    deepDive: 'Exploring routing anomalies, DNS rebinding vectors, TLS handshake inspection, micro-segmentation topologies, and egress telemetry filtering across hybrid networks.',
+    vectors: ['Transport Protocols', 'Egress Gateways', 'DNS Hierarchy', 'Subnet Isolation'],
+    defensiveFocus: 'Deep packet inspection, deterministic firewall policy matrices, and mutual TLS (mTLS).',
+  },
+  {
+    id: 'osint',
+    title: 'OSINT',
+    summary: 'Responsible methodologies for passive reconnaissance, infrastructure discovery, and digital footprint mapping.',
+    deepDive: 'Leveraging public Certificate Transparency logs, autonomous system mappings, archived metadata, and publicly exposed infrastructure without active intrusion.',
+    vectors: ['Public Registries', 'Certificate Transparency', 'ASN Topologies', 'Metadata Artifacts'],
+    defensiveFocus: 'Attack surface minimization, exposure reduction, and continuous passive self-audits.',
+  },
+  {
+    id: 'privacy',
+    title: 'DIGITAL PRIVACY',
+    summary: 'Analyzing tracking telemetry, data isolation models, and cryptographic safeguards for individuals.',
+    deepDive: 'Examining fingerprinting vectors across canvas/audio APIs, behavioral analytics trackers, telemetry telemetry collection, and private metadata routing.',
+    vectors: ['Browser Fingerprinting', 'Ad Telemetry', 'Location Heuristics', 'Data Broker Linkages'],
+    defensiveFocus: 'Containerized browsing environments, client-side encryption, and strict telemetry stripping.',
+  },
+  {
+    id: 'ai-sec',
+    title: 'AI & SECURITY',
+    summary: 'Investigating security implications of machine intelligence, prompt injection, and automated defense.',
+    deepDive: 'Analyzing adversarial perturbations, prompt jailbreaking architectures, model extraction constraints, and securing autonomous agent execution environments.',
+    vectors: ['Prompt Boundary Injections', 'Model Extraction', 'Data Poisoning', 'Agentic Permissions'],
+    defensiveFocus: 'Deterministic prompt firewalls, runtime parameter bounds, and sandboxed tool orchestration.',
+  },
+  {
+    id: 'sec-tools',
+    title: 'SECURITY TOOLS',
+    summary: 'Evaluating and architecting specialized utilities for defensive monitoring and diagnostic analysis.',
+    deepDive: 'Comparing open-source vulnerability scanners, packet dissection tools, fuzzing frameworks, and defensive log aggregators for real-time situational awareness.',
+    vectors: ['Binary Analysis', 'Static Linting', 'Dynamic Fuzzers', 'Log Aggregators'],
+    defensiveFocus: 'Verifiable reproducible builds, tamper-resistant log pipelines, and low-latency alerts.',
+  },
+  {
+    id: 'automation',
+    title: 'AUTOMATION',
+    summary: 'Designing robust workflows to eliminate repetitive security tasks and streamline incident response.',
+    deepDive: 'Creating resilient scripts, event-driven alert triggers, automated configuration audits, and continuous security regression testing in CI/CD pipelines.',
+    vectors: ['Event Webhooks', 'CI/CD Pipelines', 'Configuration Orchestration', 'Script Telemetry'],
+    defensiveFocus: 'Audited execution privileges, failure-safe fallback states, and human-in-the-loop overrides.',
+  },
+  {
+    id: 'cyber-edu',
+    title: 'CYBERSECURITY EDUCATION',
+    summary: 'Synthesizing complex technical topics into structured, accessible learning frameworks.',
+    deepDive: 'Structuring hands-on lab environments, ethical capture-the-flag exercises, defensive case studies, and conceptual visualizers that foster ethical responsibility.',
+    vectors: ['Curriculum Design', 'Lab Sandbox Architectures', 'Visual Explanations', 'Ethical Foundations'],
+    defensiveFocus: 'Reinforcing authorized boundaries, responsible disclosure ethics, and defensive mindset.',
+  },
+];
+
+export const PROJECTS: Project[] = [
+  {
+    id: '8whie-lab',
+    number: '01',
+    name: '8WHIE LAB',
+    category: 'EXPERIMENTAL CYBERSECURITY RESEARCH',
+    description: 'An experimental space for cybersecurity tools, research and technical experiments.',
+    technology: ['Linux Sandbox', 'Python', 'Go', 'Network Telemetry', 'Docker Isolation'],
+    status: 'ACTIVE EXPERIMENT',
+    focus: 'Vulnerability replication & defensive validation',
+    architectureDetails: 'A sandboxed testbed engineered to evaluate modern attack surfaces, simulate network protocol edge cases, and run controlled security diagnostics without external collateral risk.',
+  },
+  {
+    id: '8whie-academy',
+    number: '02',
+    name: '8WHIE ACADEMY',
+    category: 'EDUCATIONAL PLATFORM',
+    description: 'Practical cybersecurity and ethical hacking education for learners.',
+    technology: ['Interactive Curricula', 'Defensive Walkthroughs', 'OSINT Playbooks', 'Markdown Engine'],
+    status: 'RESEARCH PHASE',
+    focus: 'Accessible ethical hacking & security fundamentals',
+    architectureDetails: 'A structured technical knowledge platform designed to provide rigorous yet intuitive learning paths—covering foundational networking, reconnaissance, vulnerability analysis, and ethical testing standards.',
+  },
+  {
+    id: '8whie-tools',
+    number: '03',
+    name: '8WHIE TOOLS',
+    category: 'UTILITIES & AUTOMATION SUITE',
+    description: 'Technical utilities and experimental tools created for learning, research and productivity.',
+    technology: ['Automation Scripts', 'CLI Utilities', 'Data Parsers', 'Security Telemetry'],
+    status: 'IN DEVELOPMENT',
+    focus: 'Audit efficiency & reconnaissance automation',
+    architectureDetails: 'A collection of focused, lightweight command-line and automation utilities built to accelerate reconnaissance, automate passive intelligence collection, and simplify configuration verification.',
+  },
+];

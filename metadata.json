@@ -1,0 +1,6 @@
+{
+  "name": "8WHIE",
+  "description": "8WHIE explores cybersecurity, ethical hacking, technology, research and digital security through practical education and experimentation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
