@@ -1,43 +1,160 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" fill="none">
-  <!-- Minimalist Laboratory Founder Profile Placeholder -->
-  <rect width="600" height="750" fill="#0C0C0C"/>
-  
-  <!-- Subtle coordinate grid -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
   <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    <!-- Wall Texture and Gradients -->
+    <linearGradient id="wallSunlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b8a792"/>
+      <stop offset="40%" stop-color="#ab9984"/>
+      <stop offset="100%" stop-color="#8a7967"/>
+    </linearGradient>
+
+    <!-- Warm Skin Gradients -->
+    <linearGradient id="skinSunlight" x1="30%" y1="10%" x2="70%" y2="90%">
+      <stop offset="0%" stop-color="#f5d6ba"/>
+      <stop offset="50%" stop-color="#deb492"/>
+      <stop offset="100%" stop-color="#ab7c58"/>
+    </linearGradient>
+
+    <!-- Hair Depth -->
+    <linearGradient id="hairDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2321"/>
+      <stop offset="50%" stop-color="#141110"/>
+      <stop offset="100%" stop-color="#080707"/>
+    </linearGradient>
+
+    <!-- Hair Warm Sun Highlights -->
+    <linearGradient id="hairHighlight" x1="0%" y1="0%" x2="80%" y2="50%">
+      <stop offset="0%" stop-color="#4a3b34"/>
+      <stop offset="100%" stop-color="#1c1715"/>
+    </linearGradient>
+
+    <!-- Sunglasses Frame & Lenses -->
+    <linearGradient id="lensReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22252a"/>
+      <stop offset="45%" stop-color="#111215"/>
+      <stop offset="100%" stop-color="#090a0d"/>
+    </linearGradient>
+
+    <!-- Black Shirt Gradient -->
+    <linearGradient id="blackShirt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#212124"/>
+      <stop offset="50%" stop-color="#131315"/>
+      <stop offset="100%" stop-color="#080809"/>
+    </linearGradient>
+
+    <pattern id="wallGrain" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="2" height="2" fill="#ffffff" fill-opacity="0.04"/>
+      <rect x="2" y="2" width="2" height="2" fill="#000000" fill-opacity="0.05"/>
     </pattern>
-    <linearGradient id="glow" x1="300" y1="200" x2="300" y2="600" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#B7FF00" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#B7FF00" stop-opacity="0"/>
+  </defs>
+
+  <!-- Background: Warm Stucco Wall -->
+  <rect width="800" height="1000" fill="url(#wallSunlight)"/>
+  <rect width="800" height="1000" fill="url(#wallGrain)"/>
+
+  <!-- Diagonal Architectural Shadows (Slats/Pergola in sunlight) -->
+  <g opacity="0.38" fill="#2d251e">
+    <polygon points="-50,0 200,0 450,1000 200,1000"/>
+    <polygon points="120,0 320,0 620,1000 420,1000"/>
+    <polygon points="340,0 490,0 800,850 720,1000 640,1000"/>
+    <polygon points="530,0 660,0 800,450 800,280"/>
+  </g>
+
+  <!-- Left Architectural Frame / Window mullion in foreground -->
+  <rect x="0" y="0" width="48" height="1000" fill="#18181a"/>
+  <line x1="48" y1="0" x2="48" y2="1000" stroke="#ffffff" stroke-opacity="0.08" stroke-width="2"/>
+
+  <!-- Neck and Upper Chest -->
+  <path d="M370 510 L350 630 L450 730 L530 630 L520 510 Z" fill="url(#skinSunlight)"/>
+  <!-- Throat shadow and sternocleidomastoid definition -->
+  <path d="M380 540 Q410 630 435 670 Q445 610 470 550" stroke="#7a5234" stroke-width="4" fill="none" opacity="0.45"/>
+  <path d="M420 620 Q440 680 450 705 Q465 670 475 625" fill="#8f6342" opacity="0.35"/>
+
+  <!-- Face / Head Contour (Tilted back against the wall) -->
+  <path d="M320 370 Q305 450 330 495 Q355 535 385 535 Q450 535 490 510 Q535 480 545 420 Q555 350 510 270 Q430 230 350 290 Q325 330 320 370 Z" fill="url(#skinSunlight)"/>
+
+  <!-- Jawline, Beard & Mustache Stubble -->
+  <!-- Mustache -->
+  <path d="M338 430 Q360 425 382 445 Q370 460 340 452 Z" fill="#1b1716"/>
+  <!-- Lips -->
+  <path d="M346 448 Q368 450 380 456 Q365 464 348 460 Z" fill="#9e6655" opacity="0.85"/>
+  <!-- Chin & Beard -->
+  <path d="M340 470 Q370 515 400 518 Q440 510 480 475 Q465 500 410 528 Q365 528 335 480 Z" fill="#181514" opacity="0.88"/>
+  <path d="M470 430 Q495 435 505 455 Q485 470 460 480 Z" fill="#181514" opacity="0.7"/>
+
+  <!-- Left Ear -->
+  <path d="M500 395 Q540 390 545 425 Q545 465 515 465 Z" fill="#deb492"/>
+  <path d="M515 410 Q530 415 528 440 Q515 445 510 430 Z" fill="#9e6d4c"/>
+
+  <!-- Classic Sunglasses (Wayfarers) -->
+  <!-- Bridge -->
+  <rect x="365" y="340" width="28" height="10" rx="3" fill="#0d0e10"/>
+  <!-- Right Lens & Frame (Perspective facing) -->
+  <path d="M310 320 L370 330 L360 395 Q335 415 315 390 L305 345 Z" fill="url(#lensReflect)" stroke="#0a0a0c" stroke-width="8" stroke-linejoin="round"/>
+  <!-- Left Lens & Frame -->
+  <path d="M390 335 L500 355 L490 415 Q450 430 405 410 L388 350 Z" fill="url(#lensReflect)" stroke="#0a0a0c" stroke-width="9" stroke-linejoin="round"/>
+  <!-- Sunglasses Temple / Arm going toward ear -->
+  <path d="M495 360 L525 385 L530 395" stroke="#0a0a0c" stroke-width="12" stroke-linecap="round"/>
+  <!-- Lens White Reflection Highlights -->
+  <path d="M320 335 L355 342 L348 375 Z" fill="#ffffff" fill-opacity="0.12"/>
+  <path d="M410 350 L470 365 L460 390 Z" fill="#ffffff" fill-opacity="0.12"/>
+  <circle cx="505" cy="370" r="2.5" fill="#cfcfd4"/>
+
+  <!-- Hair: Thick, Wavy, Textured Silhouette -->
+  <!-- Base mass -->
+  <path d="M320 320 Q290 280 320 220 Q360 170 430 150 Q520 140 590 190 Q650 250 630 340 Q620 380 580 430 Q565 410 560 370 Q560 300 520 260 Q440 230 370 280 Q335 305 320 320 Z" fill="url(#hairDark)"/>
+  <!-- Strands & Front Wave Swept Over -->
+  <path d="M320 235 Q350 180 410 165 Q480 160 540 200 Q470 215 410 240 Q360 260 320 235 Z" fill="url(#hairHighlight)"/>
+  <path d="M380 180 Q450 130 540 160 Q590 190 610 250 Q550 210 470 205 Q410 215 380 180 Z" fill="#362923"/>
+  <!-- Right edge tufts & waves -->
+  <path d="M570 220 Q640 230 635 300 Q630 340 595 375 Q605 330 580 290 Z" fill="#1f1a18"/>
+  <path d="M315 260 Q285 240 310 210 Q325 240 350 245 Z" fill="#1a1615"/>
+  <path d="M340 300 Q310 320 330 345 Q340 325 355 315 Z" fill="#141110"/>
+
+  <!-- Black Collared Button-Down Shirt -->
+  <!-- Left Shoulder & Arm -->
+  <path d="M0 690 Q120 620 280 550 L340 640 L370 790 L260 1000 L0 1000 Z" fill="url(#blackShirt)"/>
+  <!-- Right Shoulder & Arm -->
+  <path d="M490 610 Q610 630 730 710 L800 850 L800 1000 L440 1000 L450 780 Z" fill="url(#blackShirt)"/>
+
+  <!-- Shirt Collars (Open neckline) -->
+  <!-- Left Collar Leaf -->
+  <path d="M280 545 L375 640 L330 655 L260 580 Z" fill="#1d1d20" stroke="#000000" stroke-width="2"/>
+  <!-- Right Collar Leaf -->
+  <path d="M495 560 L415 645 L460 670 L530 595 Z" fill="#1d1d20" stroke="#000000" stroke-width="2"/>
+
+  <!-- Placket and Buttons -->
+  <path d="M370 650 L430 1000 L395 1000 L340 650 Z" fill="#101012"/>
+  <!-- Buttons -->
+  <circle cx="380" cy="710" r="5" fill="#404046" stroke="#1a1a1c" stroke-width="1.5"/>
+  <circle cx="395" cy="820" r="5" fill="#404046" stroke="#1a1a1c" stroke-width="1.5"/>
+  <circle cx="410" cy="940" r="5" fill="#404046" stroke="#1a1a1c" stroke-width="1.5"/>
+
+  <!-- Fabric Texture and Folds -->
+  <path d="M200 660 Q280 690 320 780" stroke="#2c2c32" stroke-width="2.5" fill="none" opacity="0.6"/>
+  <path d="M540 680 Q620 740 670 850" stroke="#2c2c32" stroke-width="2.5" fill="none" opacity="0.6"/>
+  <path d="M120 780 Q200 810 240 920" stroke="#2c2c32" stroke-width="2.5" fill="none" opacity="0.6"/>
+
+  <!-- Bottom Dark Vignette / Scrim Integration -->
+  <rect y="780" width="800" height="220" fill="url(#bottomScrim)"/>
+  <defs>
+    <linearGradient id="bottomScrim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#070707" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#070707" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#070707" stop-opacity="0.98"/>
     </linearGradient>
   </defs>
-  <rect width="600" height="750" fill="url(#grid)" />
-  
-  <!-- Ambient glow backdrop -->
-  <circle cx="300" cy="320" r="180" fill="url(#glow)"/>
-  
-  <!-- Stylized Geometric Silhouette & Lab Reticle -->
-  <!-- Outer reticle -->
-  <circle cx="300" cy="300" r="140" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="4 4"/>
-  <circle cx="300" cy="300" r="110" stroke="#B7FF00" stroke-opacity="0.3" stroke-width="1.5"/>
-  
-  <!-- Corner registration marks -->
-  <path d="M 30 50 L 30 30 L 50 30" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
-  <path d="M 570 50 L 570 30 L 550 30" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
-  <path d="M 30 700 L 30 720 L 50 720" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
-  <path d="M 570 700 L 570 720 L 550 720" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
-  
-  <!-- Monogram Initials AT -->
-  <text x="300" y="325" fill="#F2F2F2" font-family="'Space Grotesk', monospace" font-size="72" font-weight="700" letter-spacing="0.1em" text-anchor="middle">AT</text>
 
-  <!-- Technical identification markers -->
-  <rect x="230" y="470" width="140" height="28" rx="2" fill="#141414" stroke="#FFFFFF" stroke-opacity="0.15"/>
-  <text x="300" y="488" fill="#B7FF00" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="500" letter-spacing="0.15em" text-anchor="middle">FOUNDER // 8WHIE</text>
+  <!-- High-Tech Laboratory Reticle Accents -->
+  <g stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5">
+    <path d="M 25 35 L 25 15 L 45 15" fill="none"/>
+    <path d="M 775 35 L 775 15 L 755 15" fill="none"/>
+    <path d="M 25 965 L 25 985 L 45 985" fill="none"/>
+    <path d="M 775 965 L 775 985 L 755 985" fill="none"/>
+  </g>
 
-  <text x="300" y="550" fill="#F2F2F2" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="600" letter-spacing="0.08em" text-anchor="middle">ARYAN THAKUR</text>
-  <text x="300" y="580" fill="#929292" font-family="'Inter', sans-serif" font-size="13" text-anchor="middle">Patna, India · Research &amp; Security</text>
-
-  <!-- Bottom status note -->
-  <text x="300" y="680" fill="#929292" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="0.05em" text-anchor="middle" fill-opacity="0.6">[ OFFICIAL PROFILE IMAGE SLOT — ARYAN-PROFILE.JPG ]</text>
+  <!-- Subtle Electric Lime Identification Marker -->
+  <circle cx="50" cy="950" r="3.5" fill="#B7FF00"/>
+  <text x="65" y="954" fill="#F2F2F2" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" letter-spacing="0.1em">ARYAN THAKUR</text>
+  <text x="65" y="972" fill="#929292" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="0.15em">FOUNDER // 8WHIE</text>
+  <text x="750" y="960" fill="#929292" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="0.1em" text-anchor="end">PATNA, IN</text>
 </svg>

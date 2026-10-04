@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { validateContactSubmission, dispatchContactMessage } from './lib/contact.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,8 +12,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'iaryan9905@gmail.com';
 
 // Middleware
-app.use(express.json({ limit: '50kb' }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Simple in-memory rate limiter for contact form
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -67,46 +68,19 @@ app.get('/api/health', (_req: Request, res: Response) => {
 });
 
 // API: Contact Submission
-app.post('/api/contact', rateLimiter, (req: Request, res: Response) => {
+app.post('/api/contact', rateLimiter, async (req: Request, res: Response) => {
   try {
-    const { name, email, phone, subject, message, honeypot } = req.body;
+    const { isValid, errors, sanitized } = validateContactSubmission(req.body);
 
     // Spam honeypot detection
-    if (honeypot) {
-      // Silently discard spam bot submissions with normal success response
+    if (sanitized.honeypot) {
       return res.status(200).json({
         success: true,
         message: "MESSAGE RECEIVED.\n\nWe'll get back to you.",
       });
     }
 
-    // Sanitize
-    const cleanName = sanitizeString(name, 100);
-    const cleanEmail = sanitizeString(email, 120).toLowerCase();
-    const cleanPhone = sanitizeString(phone, 30);
-    const cleanSubject = sanitizeString(subject, 150);
-    const cleanMessage = sanitizeString(message, 3000);
-
-    // Validation
-    const errors: Record<string, string> = {};
-
-    if (!cleanName || cleanName.length < 2) {
-      errors.name = 'Please provide your full name (minimum 2 characters).';
-    }
-
-    if (!cleanEmail || !isValidEmail(cleanEmail)) {
-      errors.email = 'Please provide a valid email address.';
-    }
-
-    if (!cleanSubject || cleanSubject.length < 3) {
-      errors.subject = 'Please specify a subject for your message.';
-    }
-
-    if (!cleanMessage || cleanMessage.length < 10) {
-      errors.message = 'Please enter a message with at least 10 characters.';
-    }
-
-    if (Object.keys(errors).length > 0) {
+    if (!isValid) {
       return res.status(400).json({
         success: false,
         error: 'Validation failed. Please verify your information.',
@@ -114,14 +88,7 @@ app.post('/api/contact', rateLimiter, (req: Request, res: Response) => {
       });
     }
 
-    // In a real production deployment with SMTP credentials, dispatch email here.
-    // Structured laboratory logging:
-    const submissionId = `MSG-${Date.now().toString(36).toUpperCase()}`;
-    console.log(`[8WHIE SECURE DISPATCH] ${submissionId} to ${CONTACT_EMAIL}`);
-    console.log(`From: ${cleanName} <${cleanEmail}>`);
-    if (cleanPhone) console.log(`Phone: ${cleanPhone}`);
-    console.log(`Subject: ${cleanSubject}`);
-    console.log(`Message:\n${cleanMessage}`);
+    const { submissionId } = await dispatchContactMessage(sanitized);
 
     return res.status(200).json({
       success: true,
@@ -134,6 +101,36 @@ app.post('/api/contact', rateLimiter, (req: Request, res: Response) => {
       success: false,
       error: 'An internal error occurred while transmitting your message. Please reach out directly to iaryan9905@gmail.com.',
     });
+  }
+});
+
+// API: Upload / Replace Founder Photo directly
+app.post('/api/upload-founder-photo', async (req: Request, res: Response) => {
+  try {
+    const { imageBase64 } = req.body;
+    if (!imageBase64 || typeof imageBase64 !== 'string') {
+      return res.status(400).json({ success: false, error: 'No image data provided.' });
+    }
+
+    const cleanBase64 = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+    const buffer = Buffer.from(cleanBase64, 'base64');
+
+    const fs = await import('fs');
+    const publicPath = path.resolve(__dirname, 'public/images/aryan-profile.jpg');
+    const dir = path.dirname(publicPath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(publicPath, buffer);
+
+    const distImgPath = path.resolve(__dirname, 'dist/images/aryan-profile.jpg');
+    if (fs.existsSync(path.dirname(distImgPath))) {
+      fs.writeFileSync(distImgPath, buffer);
+    }
+
+    console.log(`[8WHIE] Official founder photo saved to ${publicPath} (${buffer.length} bytes)`);
+    return res.json({ success: true, message: 'Founder photo updated successfully.' });
+  } catch (err) {
+    console.error('[8WHIE Upload Error]:', err);
+    return res.status(500).json({ success: false, error: 'Failed to process image.' });
   }
 });
 

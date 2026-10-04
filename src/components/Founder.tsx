@@ -1,17 +1,50 @@
-import React, { useState } from 'react';
-import { Mail, ArrowUpRight, ShieldCheck, MapPin } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Mail, ArrowUpRight, MapPin, Camera, Check } from 'lucide-react';
 import { BRAND_INFO } from '../data';
 
 export const Founder: React.FC = () => {
-  const [imgSrc, setImgSrc] = useState('/images/aryan-profile.jpg');
-  const [imgError, setImgError] = useState(false);
+  // First check localStorage for any direct user-uploaded photo, fallback to official public file, then vector
+  const [imgSrc, setImgSrc] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const cached = localStorage.getItem('8whie_founder_photo');
+      if (cached) return cached;
+    }
+    return '/images/aryan-profile.jpg';
+  });
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageError = () => {
-    // Graceful fallback to the official vector placeholder if the jpg hasn't been uploaded yet
-    if (!imgError) {
-      setImgError(true);
-      setImgSrc('/images/aryan-profile.svg');
-    }
+    // If the jpg is not yet loaded, fallback smoothly to the high-fidelity photographic vector portrait
+    setImgSrc('/images/aryan-profile.svg');
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64 = event.target?.result as string;
+      if (base64) {
+        setImgSrc(base64);
+        try {
+          localStorage.setItem('8whie_founder_photo', base64);
+          setUploadSuccess(true);
+          setTimeout(() => setUploadSuccess(false), 3000);
+
+          // Sync to server backend
+          await fetch('/api/upload-founder-photo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ imageBase64: base64 }),
+          });
+        } catch (err) {
+          console.error('Failed to sync founder photo to server:', err);
+        }
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -38,20 +71,44 @@ export const Founder: React.FC = () => {
               <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-[#B7FF00]" />
               <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#B7FF00]" />
 
-              <div className="relative aspect-[4/5] bg-[#0E0E0E] overflow-hidden border border-white/[0.12]">
+              <div className="relative aspect-[4/5] sm:aspect-[4/5] bg-[#0E0E0E] overflow-hidden border border-white/[0.12] shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
                 <img
                   src={imgSrc}
                   alt="Aryan Thakur — Founder of 8WHIE"
                   onError={handleImageError}
-                  className="w-full h-full object-cover object-center filter grayscale contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="w-full h-full object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   loading="lazy"
                 />
 
                 {/* Subtle scrim & overlay tag */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-transparent opacity-50 pointer-events-none" />
 
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-[#F2F2F2]">
-                  <span className="text-[#B7FF00]">ARYAN THAKUR</span>
+                {/* Corner Quick Photo Sync Control */}
+                <div className="absolute top-3 right-3 z-20">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    id="founder-photo-upload"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    title="Update or sync photo from device"
+                    className="p-2 bg-black/60 hover:bg-[#B7FF00] text-white/70 hover:text-black transition-colors rounded backdrop-blur-sm border border-white/10 hover:border-[#B7FF00]"
+                  >
+                    {uploadSuccess ? (
+                      <Check className="w-3.5 h-3.5 text-[#B7FF00] hover:text-black" />
+                    ) : (
+                      <Camera className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-[#F2F2F2] z-10 pointer-events-none">
+                  <span className="text-[#B7FF00] font-semibold">ARYAN THAKUR</span>
                   <span className="text-[#929292]">FOUNDER // 8WHIE</span>
                 </div>
               </div>
